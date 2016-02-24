@@ -143,14 +143,14 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
     
     //MARK: Validation
     public var countryIsValid: Bool {
-        if let countryCodeLength = countryTextField.text?.length {
+        if let countryCodeLength = countryTextField.text?.utf16.count {
             return country != Country.emptyCountry && countryCodeLength > 1 && countryCodeLength < 5
         }
         return false
     }
     
     public var phoneNumberIsValid: Bool {
-        if let phoneNumberLength = phoneNumberTextField.text?.length {
+        if let phoneNumberLength = phoneNumberTextField.text?.utf16.count {
             return phoneNumberLength > 5 && phoneNumberLength < 15
         }
         return false
@@ -161,11 +161,5 @@ public final class PhoneNumberViewController: UIViewController, CountriesViewCon
         let validPhoneNumber = phoneNumberIsValid
         
         doneBarButtonItem.enabled = validCountry && validPhoneNumber
-    }
-}
-
-private extension String {
-    var length: Int {
-        return utf16.count
     }
 }
